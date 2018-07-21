@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="blog-post-body">
+	<h1>Contact us</h1>
+	{% if form.errors %}
+		<p style="color:red;">
+			Please correct the error{{ form.errors|pluralize }} below.
+			all forms all required!
+		</p>
+	{% endif %}
+
+<form action="" method="post" novalidate>
+{% csrf_token %}
+<table>
+	<div class="post-meta">name：
+	{{ form.name }}
+	email:
+	{{ form.email }}
+	</div>
+	<div class="post-meta">subject:
+	{{ form.subject }}
+	</div>
+	<div class="post-meta">message:<br />
+	{{ form.message }}
+	
+</table>
+<input type="submit" value="Submit">
+</form>
+</div>
+
+{% endblock main %}

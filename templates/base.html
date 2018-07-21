@@ -1,0 +1,239 @@
+﻿{% load staticfiles %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="{% static 'blog/images/favicon.ico' %}">
+		<title>Jun &amp; Hao</title>
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<!-- Custom styles for this template -->
+		<link rel="stylesheet" href="{% static 'blog/css/jquery.bxslider.css' %}">
+		<link rel="stylesheet" href="{% static 'blog/css/style.css' %}" >
+	</head>
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="{% url 'blog:index' %}">Home</a></li>
+						<li><a href="{% url 'blog:blog' %}">Blog</a></li>
+						<li><a href="{% url 'blog:about' %}">About Me</a></li>
+						<li><a href="{% url 'blog:contact' %}">Contact</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="https://weibo.com/u/2248779060"><i class="fa fa-weibo"></i></a></li>
+						<li><a href="https://blog.csdn.net/weixin_38249995"><i class="fa fa-graduation-cap"></i></a></li>
+						<li><a href="https://github.com/junhao69535"><i class="fa fa-github"></i></a></li>
+					</ul>
+
+				</div>
+				<!--/.nav-collapse -->
+				<div id="header-search-box" class="nav navbar-nav navbar-right" >
+                    			<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    			<div id="search-form" class="search-form">
+			    			<form role="search" method="get" id="searchform" action="{% url 'blog:search' %}" >
+                            			<input type="search" name='q' placeholder="search" required>
+                            			<button type="submit"><span class="ion-ios-search-strong"></span>search</button>
+                        			</form>
+                    			</div>
+                		</div>
+
+			</div>
+		</nav>
+		
+
+		<div class="container">
+		<header>
+			<a href="{% url 'blog:index' %}"><img src="{% static 'blog/images/logo.png' %}"></a>
+		</header>
+		{% block push %}
+		{% endblock push %}
+		
+		<section>
+			<div class="row">
+				<div class="col-md-8">
+					<article class="blog-post">
+						{% block main %}
+						{% endblock main %}
+					</article>
+				</div>
+                <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
+				<div class="col-md-4 sidebar-gutter">
+					<aside>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">About Me</h3>
+						<div class="widget-container widget-about">
+							<a href="{% url 'blog:index' %}"><img src="{% static 'blog/images/author.jpg' %}" alt=""></a>
+							<h4>Jun Hao</h4>
+							<div class="author-title">Designer</div>
+							<p>一名默默奋斗的大学生</p>
+						</div>
+					</div>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">Latest Posts</h3>
+						<div class="widget-container">
+							<article class="widget-post">
+							{% get_first_post as first_post %}
+								<div class="post-image">
+									<a href="{{ first_post.get_absolute_url }}"><img src="{% static 'blog/images/90x60-1.jpg' %}" alt=""></a>
+								</div>
+								<div class="post-body">
+									<h2><a href="{{ first_post.get_absolute_url }}">{{ first_post.title }}</a></h2>
+									<div class="post-meta">
+										<span><i class="fa fa-clock-o"></i> {{ first_post.created_time }}</span> <span><a href="{{ first_post.get_absolute_url }}"><i class="fa fa-comment-o"></i>{{ first_post.comment_set.count }}</a></span>
+									</div>
+								</div>
+							</article>
+							<article class="widget-post">
+							{% get_second_post as second_post %}
+								<div class="post-image">
+									<a href="{{ second_post.get_absolute_url }}"><img src="{% static 'blog/images/90x60-2.jpg' %}" alt=""></a>
+								</div>
+								<div class="post-body">
+									<h2><a href="{{ second_post.get_absolute_url }}">{{ second_post.title }}</a></h2>
+									<div class="post-meta">
+										<span><i class="fa fa-clock-o"></i>{{ second_post.created_time }}</span> <span><a href="{{ second_post.get_absolute_url }}"><i class="fa fa-comment-o"></i> {{ second_post.comment_set.count }}</a></span>
+									</div>
+								</div>
+							</article>
+							<article class="widget-post">
+							{% get_third_post as third_post %}
+								<div class="post-image">
+									<a href="{{ third_post.get_absolute_url}}"><img src="{% static 'blog/images/90x60-3.jpg' %}" alt=""></a>
+								</div>
+								<div class="post-body">
+									<h2><a href="{{ third_post.get_absolute_url}}">{{ third_post.title }}</a></h2>
+									<div class="post-meta">
+										<span><i class="fa fa-clock-o"></i>{{ third_post.created_time }}</span> <span><a href="{{ third_post.get_absolute_url}}"><i class="fa fa-comment-o"></i> {{ third_post.comment_set.count }}</a></span>
+									</div>
+								</div>
+							</article>
+							<article class="widget-post">
+							{% get_four_post as four_post %}
+								<div class="post-image">
+									<a href="{{ four_post.get_absolute_url }}"><img src="{% static 'blog/images/90x60-4.jpg' %}" alt=""></a>
+								</div>
+								<div class="post-body">
+									<h2><a href="{{ four_post.get_absolute_url }}">{{ four_post.title }}</a></h2>
+									<div class="post-meta">
+										<span><i class="fa fa-clock-o"></i>{{ four_post.created_time }}</span> <span><a href="{{ four_post.get_absolute_url }}"><i class="fa fa-comment-o"></i> {{ four_post.comment_set.count }}</a></span>
+									</div>
+								</div>
+							</article>
+							<article class="widget-post">
+							{% get_five_post as five_post %}
+								<div class="post-image">
+									<a href="{{ five_post.get_absolute_url }}"><img src="{% static 'blog/images/90x60-5.jpg' %}" alt=""></a>
+								</div>
+								<div class="post-body">
+									<h2><a href="{{ five_post.get_absolute_url }}">{{ five_post.title }}</a></h2>
+									<div class="post-meta">
+										<span><i class="fa fa-clock-o"></i>{{ five_post.created_time }}</span> <span><a href="{{ five_post.get_absolute_url }}"><i class="fa fa-comment-o"></i> {{ five_post.comment_set.count }}</a></span>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">Archives</h3>
+						<div class="widget-container">
+							{% archives as date_list %}
+							<ul>
+							{% for date in date_list %}
+							<li>
+								<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }}年{{ date.month }}月</a>
+							</li>
+							{% empty %}
+							暂无归档！
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">Categories</h3>
+						<div class="widget-container">
+						{% get_categories as category_list %}
+							<ul>
+							{% for category in category_list %}
+								<li>
+									<a href="{% url 'blog:category' category.pk %}">{{ category.name }}<span class="category-count">({{ category.num_posts }})</span></a>
+								</li>
+							{% empty %}
+							暂无分类!
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">Tags</h3>
+						<div class="widget-container">
+							{% get_tags as tag_list %}
+							<ul>
+							{% for tag in tag_list %}
+							<li>
+								<a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}<span class="tag-count">({{ tag.num_posts }})</span></a>
+							</li>
+							{% empty %}
+							暂无标签！
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title"><a href="{% url 'rss' %}">RSS<i class="fa fa-rss"></i></a></h3>
+						
+					</div>
+					</div>
+					</aside>
+				</div>
+			</div>
+		</section>
+		</div><!-- /.container -->
+
+		<footer class="footer">
+
+			<div class="footer-socials">
+				<a href="https://weibo.com/u/2248779060"><i class="fa fa-weibo"></i></a>
+				<a href="https://blog.csdn.net/weixin_38249995"><i class="fa fa-graduation-cap"></i></a>
+				<a href="https://github.com/junhao69535"><i class="fa fa-github"></i></a>
+			</div>
+
+			<div class="footer-bottom">
+				<i class="fa fa-copyright"></i> Copyright 2015. All rights reserved.<br>
+				More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+			</div>
+		</footer>
+
+		<!-- Bootstrap core JavaScript
+			================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="{% static 'blog/js/jquery.min.js' %}"></script>
+		<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'blog/js/jquery.bxslider.js' %}"></script>
+		<script src="{% static 'blog/js/mooz.scripts.min.js' %}"></script>
+	</body>
+</html>
